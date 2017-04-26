@@ -1,8 +1,10 @@
-package com.capstone.designpatterntutorial;
+package com.capstone.designpatterntutorial.views.activity;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,8 +15,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity
+import com.capstone.designpatterntutorial.R;
+import com.capstone.designpatterntutorial.database.DesignPatternContract;
+
+public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private String TAG = HomeActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,17 +87,19 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.design_pattern) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            Cursor cursor =  getContentResolver().query(DesignPatternContract.CategoryListEntry.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    null);
 
-        } else if (id == R.id.nav_slideshow) {
+            Log.d(TAG, "Cursor size :: " + cursor.getCount());
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.software_architecture) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.interview_questions) {
 
         }
 

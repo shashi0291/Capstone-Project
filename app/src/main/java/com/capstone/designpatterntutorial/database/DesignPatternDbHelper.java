@@ -1,0 +1,78 @@
+package com.capstone.designpatterntutorial.database;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.google.common.base.Charsets;
+import com.google.common.io.CharStreams;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+/**
+ * Created by gubbave on 4/17/2017.
+ */
+
+public class DesignPatternDbHelper extends SQLiteOpenHelper {
+
+    private String TAG = DesignPatternDbHelper.class.getSimpleName();
+
+    /*
+    * This is the name of our database. Database names should be descriptive and end with the
+    * .db extension.
+    */
+    public static final String DATABASE_NAME = "design_pattern.db";
+    private static final int DATABASE_VERSION = 1;
+
+    public static final String CATEGORY_LIST = "category_list";
+    public static final String CATEGORY_DETAILS = "category_details";
+    private Context mContext;
+
+
+    public DesignPatternDbHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        mContext = context;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        fillData(db);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d(TAG,
+                "Upgrading sample.com.sqlitesample.database from version " + oldVersion + " to "
+                        + newVersion + ", which will destroy all old data");
+        db.execSQL("DROP TABLE IF EXISTS " + CATEGORY_LIST);
+        db.execSQL("DROP TABLE IF EXISTS " + CATEGORY_DETAILS);
+
+        onCreate(db);
+    }
+
+    /* Create Category table and update the data from design_pattern.sql file */
+    private void fillData(SQLiteDatabase d) {
+        try {
+            int resourceId = mContext.getResources().getIdentifier("design_pattern", "raw", mContext.getPackageName());
+            InputStream stream = mContext.getResources().openRawResource(resourceId);
+            InputStreamReader streamReader = new InputStreamReader(stream, Charsets.UTF_8);
+            String sqliteString = CharStreams.toString(streamReader);
+            String[] sqlQuery = sqliteString.split(";");
+
+            for (String sql : sqlQuery) {
+                Log.d(TAG, "Sql Statement :: " + sql);
+                d.execSQL(sql + ";");
+            }
+
+            stream.close();
+        } catch (Exception e) {
+            Toast.makeText(mContext, e.toString() + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+//        d.close();
+    }
+
+}
