@@ -21,3 +21,9 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    roboelectricVer = '3.3.2'
+    daggerVersion = '2.9'
+    eventbusVersion = '3.0.0'
+}
