@@ -4,10 +4,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -44,8 +45,7 @@ public class DesignPatternDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(TAG,
-                "Upgrading sample.com.sqlitesample.database from version " + oldVersion + " to "
+        Log.d(TAG, "Upgrading sample.com.sqlitesample.database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS " + CATEGORY_LIST);
         db.execSQL("DROP TABLE IF EXISTS " + CATEGORY_DETAILS);
@@ -53,26 +53,24 @@ public class DesignPatternDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /* Create Category table and update the data from design_pattern.sql file */
+    /* Create CategoryList, CategoryDetails table and update the data from design_pattern.sql file */
     private void fillData(SQLiteDatabase d) {
         try {
             int resourceId = mContext.getResources().getIdentifier("design_pattern", "raw", mContext.getPackageName());
             InputStream stream = mContext.getResources().openRawResource(resourceId);
             InputStreamReader streamReader = new InputStreamReader(stream, Charsets.UTF_8);
             String sqliteString = CharStreams.toString(streamReader);
-            String[] sqlQuery = sqliteString.split(";");
+            String[] sqlQueryList = sqliteString.split(";");
 
-            for (String sql : sqlQuery) {
-                Log.d(TAG, "Sql Statement :: " + sql);
-                d.execSQL(sql + ";");
+            for (String sqlQuery : sqlQueryList) {
+                if (StringUtils.isNotEmpty(sqlQuery)) {
+                    Log.d(TAG, "Sql Query :: " + sqlQuery);
+                    d.execSQL(sqlQuery + ";");
+                }
             }
-
             stream.close();
         } catch (Exception e) {
-            Toast.makeText(mContext, e.toString() + e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.d(TAG, "Exception :: " + e.getMessage());
         }
-
-//        d.close();
     }
-
 }

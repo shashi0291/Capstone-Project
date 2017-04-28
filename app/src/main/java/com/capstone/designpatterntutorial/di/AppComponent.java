@@ -1,6 +1,7 @@
 package com.capstone.designpatterntutorial.di;
 
-import com.capstone.designpatterntutorial.views.activity.HomeActivity;
+import com.capstone.designpatterntutorial.presenters.HomePresenter;
+import com.capstone.designpatterntutorial.views.activities.HomeActivity;
 
 import javax.inject.Singleton;
 
@@ -15,5 +16,6 @@ import dagger.Component;
 public interface AppComponent {
 
     void inject(HomeActivity activity);
+    void inject(HomePresenter homePresenter);
 
 }

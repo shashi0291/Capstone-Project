@@ -5,6 +5,12 @@ import android.content.ContentResolver;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.capstone.designpatterntutorial.converter.MainScreenConverter;
+import com.capstone.designpatterntutorial.presenters.HomePresenter;
+
+import org.greenrobot.eventbus.EventBus;
+
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -16,21 +22,20 @@ import dagger.Provides;
 @Module
 public class BaseModuleApplication {
 
-    Application mApplication;
+    MyApplication mMyApplication;
 
-    public BaseModuleApplication(Application application) {
-        mApplication = application;
+    public BaseModuleApplication(MyApplication myApplication) {
+        mMyApplication = myApplication;
     }
 
     @Provides
     @Singleton
     Application providesApplication() {
-        return mApplication;
+        return mMyApplication;
     }
 
     @Provides
     @Singleton
-        // Application reference must come from AppModule.class
     SharedPreferences providesSharedPreferences(Application application) {
         return PreferenceManager.getDefaultSharedPreferences(application);
     }
@@ -39,5 +44,30 @@ public class BaseModuleApplication {
     @Singleton
     ContentResolver providesContentResolver(Application application) {
         return application.getContentResolver();
+    }
+
+    @Provides
+    @Singleton
+    EventBus providesEventBus(Application application) {
+        return EventBus.getDefault();
+    }
+
+    @Provides
+    @Singleton
+    @Named("sticky")
+    EventBus providesStickyEventBus(Application application) {
+        return EventBus.getDefault();
+    }
+
+    @Provides
+    @Singleton
+    MainScreenConverter providesMainScreenConverter(Application application) {
+        return new MainScreenConverter();
+    }
+
+    @Provides
+    @Singleton
+    HomePresenter providesHomePresenter() {
+        return new HomePresenter(mMyApplication);
     }
 }

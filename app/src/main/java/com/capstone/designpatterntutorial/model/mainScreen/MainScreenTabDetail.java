@@ -10,7 +10,7 @@ import java.util.Objects;
  * Created by venugopalraog on 4/24/17.
  */
 
-class MainScreenTabDetail implements Parcelable {
+public class MainScreenTabDetail implements Parcelable {
 
     private String title;
     private List<ScreenData> screenDataList;

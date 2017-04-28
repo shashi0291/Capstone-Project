@@ -36,7 +36,11 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
     compile 'javax.inject:javax.inject:1'
 
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
     compile "org.greenrobot:eventbus:$rootProject.ext.eventbusVersion"
+    compile 'org.apache.commons:commons-lang3:3.4'
 
     testCompile "org.robolectric:shadows-multidex:$rootProject.ext.roboelectricVer"
     testCompile "org.robolectric:shadows-core:$rootProject.ext.roboelectricVer"
