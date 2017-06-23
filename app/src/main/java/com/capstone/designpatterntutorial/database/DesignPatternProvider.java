@@ -39,7 +39,7 @@ public class DesignPatternProvider extends ContentProvider {
                 cursor = mOpenHelper.getReadableDatabase().query(
                         DesignPatternContract.CategoryListEntry.TABLE_NAME,
                         projection,
-                        null,
+                        selection,
                         selectionArgs,
                         null,
                         null,
@@ -49,7 +49,7 @@ public class DesignPatternProvider extends ContentProvider {
                 cursor = mOpenHelper.getReadableDatabase().query(
                         DesignPatternContract.CategoryDetailsEntry.TABLE_NAME,
                         projection,
-                        null,
+                        selection,
                         selectionArgs,
                         null,
                         null,

@@ -30,6 +30,13 @@ public class DesignPatternContract {
         public static final String COLUMN_CATEGORY_NAME = "CategoryName";
         public static final String COLUMN_DESCRIPTION = "Description";
 
+        public static final String[] CATEGORY_LIST_COLUMNS = {
+                COLUMN_CATEGORY_ID,
+                COLUMN_DISPLAY_TITLE,
+                COLUMN_CATEGORY_NAME,
+                COLUMN_DESCRIPTION
+        };
+
         public static Uri buildCategoryListUri(long date) {
             return CONTENT_URI;
         }
@@ -50,6 +57,15 @@ public class DesignPatternContract {
         public static final String COLUMN_DESCRIPTION = "Description";
         public static final String COLUMN_IMPLEMENTATION = "Implementation";
         public static final String COLUMN_IMAGE_NAME = "ImageName";
+
+        public static final String[] CATEGORY_DETAILS_COLUMNS = {
+                COLUMN_CATEGORY_ID,
+                COLUMN_DISPLAY_TITLE,
+                COLUMN_CATEGORY_NAME,
+                COLUMN_DESCRIPTION,
+                COLUMN_IMPLEMENTATION,
+                COLUMN_IMAGE_NAME
+        };
 
         public static Uri buildCategoryListUri(long date) {
             return CONTENT_URI;

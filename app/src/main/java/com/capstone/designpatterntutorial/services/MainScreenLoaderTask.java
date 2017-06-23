@@ -9,9 +9,8 @@ import com.capstone.designpatterntutorial.converter.MainScreenConverter;
 import com.capstone.designpatterntutorial.database.DesignPatternContract.CategoryDetailsEntry;
 import com.capstone.designpatterntutorial.database.DesignPatternContract.CategoryListEntry;
 import com.capstone.designpatterntutorial.model.mainScreen.MainScreenData;
-import com.capstone.designpatterntutorial.model.mainScreen.ScreenData;
+import com.capstone.designpatterntutorial.model.mainScreen.MainScreenTab;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,11 +29,6 @@ public class MainScreenLoaderTask extends AsyncTaskLoader<MainScreenData> {
     @Override
     public MainScreenData loadInBackground() {
 
-        MainScreenData mainScreenData = new MainScreenData();
-        List<ScreenData> screenDataList = new ArrayList();
-
-        mainScreenData.setScreenDataList(screenDataList);
-
         //Query CategoryList Table from Database
         Cursor categoryListCursor =  mContentResolver.query(CategoryListEntry.CONTENT_URI,
                                             null,
@@ -42,18 +36,21 @@ public class MainScreenLoaderTask extends AsyncTaskLoader<MainScreenData> {
                                             null,
                                             null);
 
-        MainScreenConverter.convertCategoryListEntry(categoryListCursor, mainScreenData);
+        MainScreenData mainScreenData = MainScreenConverter.convertCategoryListEntry(categoryListCursor);
 
-        //Query CategoryDetails Table from Database for CategoryId retreived from CategoryList Table
-        for (int i = 0; i < categoryListCursor.getCount(); i++) {
-            int categoryId = categoryListCursor.getInt(categoryListCursor.getColumnIndex(CategoryListEntry.COLUMN_CATEGORY_ID));
-            String selection = String.format("%s = %d", CategoryDetailsEntry.COLUMN_CATEGORY_ID, categoryId);
-            Cursor categoryDetailsCursor = mContentResolver.query(CategoryDetailsEntry.CONTENT_URI,
-                                                    null,
-                                                    selection,
-                                                    null,
-                                                    null);
-            screenDataList.add(MainScreenConverter.convertCategoryDetailsEntry(categoryDetailsCursor));
+        if (mainScreenData != null) {
+            List<MainScreenTab> mainScreenTabList = mainScreenData.getMainScreenTabList();
+            //Query CategoryDetails Table from Database for CategoryId retreived from CategoryList Table
+            for (MainScreenTab mainScreenTab : mainScreenTabList) {
+                String selection = String.format("%s=?", CategoryDetailsEntry.COLUMN_CATEGORY_ID);
+                String[] selectionArgs = {String.valueOf(mainScreenTab.getCategoryId())};
+                Cursor categoryDetailsCursor = mContentResolver.query(CategoryDetailsEntry.CONTENT_URI,
+                        CategoryDetailsEntry.CATEGORY_DETAILS_COLUMNS,
+                        selection,
+                        selectionArgs,
+                        null);
+                MainScreenConverter.convertCategoryDetailsEntry(categoryDetailsCursor, mainScreenTab.getScreenDataList());
+            }
         }
 
         return mainScreenData;

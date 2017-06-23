@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by venugopalraog on 4/24/17.
@@ -14,19 +14,17 @@ import java.util.List;
 
 public class MainScreenData implements Parcelable {
 
-    private int categoryId;
     private String title;
-    private String categoryName;
-    private List<ScreenData> screenDataList;
+    private String Description;
+    private ArrayList<MainScreenTab> mainScreenTabList;
 
 
     public MainScreenData() {   }
 
     protected MainScreenData(Parcel in) {
-        categoryId = in.readInt();
         title = in.readString();
-        categoryName = in.readString();
-        screenDataList = in.createTypedArrayList(ScreenData.CREATOR);
+        Description = in.readString();
+        mainScreenTabList = in.createTypedArrayList(MainScreenTab.CREATOR);
     }
 
     public static final Creator<MainScreenData> CREATOR = new Creator<MainScreenData>() {
@@ -41,14 +39,6 @@ public class MainScreenData implements Parcelable {
         }
     };
 
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -57,20 +47,20 @@ public class MainScreenData implements Parcelable {
         this.title = title;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getDescription() {
+        return Description;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setDescription(String description) {
+        this.Description = description;
     }
 
-    public List<ScreenData> getScreenDataList() {
-        return screenDataList;
+    public ArrayList<MainScreenTab> getMainScreenTabList() {
+        return mainScreenTabList;
     }
 
-    public void setScreenDataList(List<ScreenData> screenDataList) {
-        this.screenDataList = screenDataList;
+    public void setMainScreenTabList(ArrayList<MainScreenTab> mainScreenTabList) {
+        this.mainScreenTabList = mainScreenTabList;
     }
 
     @Override
@@ -80,10 +70,9 @@ public class MainScreenData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(categoryId);
         dest.writeString(title);
-        dest.writeString(categoryName);
-        dest.writeTypedList(screenDataList);
+        dest.writeString(Description);
+        dest.writeTypedList(mainScreenTabList);
     }
 
     @Override
@@ -95,20 +84,18 @@ public class MainScreenData implements Parcelable {
         MainScreenData that = (MainScreenData) o;
 
         return new EqualsBuilder()
-                .append(categoryId, that.categoryId)
                 .append(title, that.title)
-                .append(categoryName, that.categoryName)
-                .append(screenDataList, that.screenDataList)
+                .append(Description, that.Description)
+                .append(mainScreenTabList, that.mainScreenTabList)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(categoryId)
                 .append(title)
-                .append(categoryName)
-                .append(screenDataList)
+                .append(Description)
+                .append(mainScreenTabList)
                 .toHashCode();
     }
 }
