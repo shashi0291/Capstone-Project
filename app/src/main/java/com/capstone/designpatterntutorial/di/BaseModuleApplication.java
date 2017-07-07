@@ -5,7 +5,7 @@ import android.content.ContentResolver;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.capstone.designpatterntutorial.converter.MainScreenConverter;
+import com.capstone.designpatterntutorial.model.converter.MainScreenConverter;
 import com.capstone.designpatterntutorial.presenters.HomePresenter;
 
 import org.greenrobot.eventbus.EventBus;

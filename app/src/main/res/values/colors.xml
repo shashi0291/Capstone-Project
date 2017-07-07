@@ -17,5 +17,6 @@
 
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
+    <color name="navigation_menu_item_bg">#616161</color>
 
 </resources>

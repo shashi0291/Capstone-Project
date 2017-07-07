@@ -47,7 +47,7 @@ public class DesignPatternProviderTest {
 
         Cursor cursor = null;
         try {
-            cursor = client.query(DesignPatternContract.CategoryListEntry.CONTENT_URI,
+            cursor = client.query(DesignPatternContract.CategoryEntry.CONTENT_URI,
                     null,
                     null,
                     null,

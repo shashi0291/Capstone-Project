@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.capstone.designpatterntutorial.R;
-import com.capstone.designpatterntutorial.model.mainScreen.ScreenData;
+import com.capstone.designpatterntutorial.model.mainScreen.Pattern;
 
 import java.util.List;
 
@@ -20,11 +20,11 @@ import butterknife.ButterKnife;
 
 public class MainListAdapter extends RecyclerView.Adapter <MainListAdapter.DetailsViewHolder> {
 
-    private List<ScreenData> mScreenDataList;
+    private List<Pattern> mPatternList;
     private OnItemClickListener mListener;
 
-    public MainListAdapter(List<ScreenData> screenDataList) {
-        this.mScreenDataList = screenDataList;
+    public MainListAdapter(List<Pattern> patternList) {
+        this.mPatternList = patternList;
     }
 
     @Override
@@ -42,8 +42,8 @@ public class MainListAdapter extends RecyclerView.Adapter <MainListAdapter.Detai
         this.mListener = listener;
     }
 
-    private ScreenData getItemData(int position) {
-        return mScreenDataList.get(position);
+    private Pattern getItemData(int position) {
+        return mPatternList.get(position);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class MainListAdapter extends RecyclerView.Adapter <MainListAdapter.Detai
 
     @Override
     public int getItemCount() {
-        return mScreenDataList.size();
+        return mPatternList.size();
     }
 
     public class DetailsViewHolder extends RecyclerView.ViewHolder {
@@ -62,16 +62,16 @@ public class MainListAdapter extends RecyclerView.Adapter <MainListAdapter.Detai
         TextView mTitle;
 
         @BindView(R.id.item_design_pattern_description)
-        TextView mDescription;
+        TextView mIntent;
 
         public DetailsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindData(ScreenData screenData, final int position) {
-            mTitle.setText(screenData.getCategoryName());
-            mDescription.setText(screenData.getDescription());
+        public void bindData(Pattern pattern, final int position) {
+            mTitle.setText(pattern.getName());
+            mIntent.setText(pattern.getIntent());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

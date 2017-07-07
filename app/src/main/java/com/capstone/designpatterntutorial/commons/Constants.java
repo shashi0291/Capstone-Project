@@ -6,8 +6,8 @@ package com.capstone.designpatterntutorial.commons;
 
 public class Constants {
 
-    public final static String CREATIONAL_CATEGORY_NAME = "Creational Patterns";
-    public final static String STRUCTURAL_CATEGORY_NAME = "Structural Patterns";
-    public final static String BEHAVIORAL_CATEGORY_NAME = "Behavioral Patterns";
+    public final static String CREATIONAL_CATEGORY_NAME = "Creational";
+    public final static String STRUCTURAL_CATEGORY_NAME = "Structural";
+    public final static String BEHAVIORAL_CATEGORY_NAME = "Behavioral";
 
 }

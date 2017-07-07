@@ -12,63 +12,124 @@ public class DesignPatternContract {
     public static final String CONTENT_AUTHORITY = "com.capstone.designpatterntutorial";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
-    public static final String PATH_CATEGORYLIST = "categoryList";
-    public static final String PATH_CATEGORYDETAILS = "categoryDetails";
+    public static final String PATH_CATEGORY = "category";
+    public static final String PATH_PATTERN = "pattern";
+    public static final String PATH_FAVORITE_PATTERN = "favorite_pattern";
+    public static final String PATH_RECENT_PATTERN = "recent_pattern";
 
 
-    /* Inner class that defines the table contents of the category_list table */
-    public static final class CategoryListEntry implements BaseColumns {
+    /* Inner class that defines the table contents of the category table */
+    public static final class CategoryEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
-                .appendPath(PATH_CATEGORYLIST)
+                .appendPath(PATH_CATEGORY)
                 .build();
 
-        public static final String TABLE_NAME = "category_list";
+        public static final String TABLE_NAME = "category";
 
-        public static final String COLUMN_CATEGORY_ID = "CategoryId";
-        public static final String COLUMN_DISPLAY_TITLE = "DisplayTitle";
-        public static final String COLUMN_CATEGORY_NAME = "CategoryName";
-        public static final String COLUMN_DESCRIPTION = "Description";
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_DESCRIPTION = "description";
 
         public static final String[] CATEGORY_LIST_COLUMNS = {
-                COLUMN_CATEGORY_ID,
-                COLUMN_DISPLAY_TITLE,
-                COLUMN_CATEGORY_NAME,
+                COLUMN_ID,
+                COLUMN_NAME,
                 COLUMN_DESCRIPTION
         };
 
-        public static Uri buildCategoryListUri(long date) {
+        public static Uri buildCategoryUri(long date) {
             return CONTENT_URI;
         }
     }
 
-    /* Inner class that defines the table contents of the category_list table */
-    public static final class CategoryDetailsEntry implements BaseColumns {
+    /* Inner class that defines the table contents of the pattern table */
+    public static final class PatternEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
-                .appendPath(PATH_CATEGORYDETAILS)
+                .appendPath(PATH_PATTERN)
                 .build();
 
-        public static final String TABLE_NAME = "category_details";
+        public static final String TABLE_NAME = "pattern";
 
-        public static final String COLUMN_CATEGORY_ID = "CategoryId";
-        public static final String COLUMN_DISPLAY_TITLE = "DisplayTitle";
-        public static final String COLUMN_CATEGORY_NAME = "CategoryName";
-        public static final String COLUMN_DESCRIPTION = "Description";
-        public static final String COLUMN_IMPLEMENTATION = "Implementation";
-        public static final String COLUMN_IMAGE_NAME = "ImageName";
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_CATEGORY_ID = "categoryId";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_DESCRIPTION = "description";
+        public static final String COLUMN_INTENT = "intent";
+        public static final String COLUMN_IMAGE_NAME = "imageName";
 
         public static final String[] CATEGORY_DETAILS_COLUMNS = {
-                COLUMN_CATEGORY_ID,
-                COLUMN_DISPLAY_TITLE,
-                COLUMN_CATEGORY_NAME,
+                COLUMN_ID,
+                COLUMN_NAME,
+                COLUMN_INTENT,
                 COLUMN_DESCRIPTION,
-                COLUMN_IMPLEMENTATION,
-                COLUMN_IMAGE_NAME
+                COLUMN_IMAGE_NAME,
+                COLUMN_CATEGORY_ID
         };
 
-        public static Uri buildCategoryListUri(long date) {
+        public static Uri buildPatternUri(long date) {
             return CONTENT_URI;
         }
     }
+
+    /* Inner class that defines the table contents of the favorite_pattern table */
+    public static final class FavoritePatternEntry implements BaseColumns {
+
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_PATTERN)
+                .build();
+
+        public static final String TABLE_NAME = "favorite_pattern";
+
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_CATEGORY_ID = "categoryId";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_DESCRIPTION = "description";
+        public static final String COLUMN_INTENT = "intent";
+        public static final String COLUMN_IMAGE_NAME = "imageName";
+
+        public static final String[] CATEGORY_DETAILS_COLUMNS = {
+                COLUMN_ID,
+                COLUMN_NAME,
+                COLUMN_INTENT,
+                COLUMN_DESCRIPTION,
+                COLUMN_IMAGE_NAME,
+                COLUMN_CATEGORY_ID
+        };
+
+        public static Uri buildPatternUri(long date) {
+            return CONTENT_URI;
+        }
+    }
+
+    /* Inner class that defines the table contents of the recent_pattern table */
+    public static final class RecentPatternEntry implements BaseColumns {
+
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_PATTERN)
+                .build();
+
+        public static final String TABLE_NAME = "recent_pattern";
+
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_CATEGORY_ID = "categoryId";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_DESCRIPTION = "description";
+        public static final String COLUMN_INTENT = "intent";
+        public static final String COLUMN_IMAGE_NAME = "imageName";
+
+        public static final String[] CATEGORY_DETAILS_COLUMNS = {
+                COLUMN_ID,
+                COLUMN_NAME,
+                COLUMN_INTENT,
+                COLUMN_DESCRIPTION,
+                COLUMN_IMAGE_NAME,
+                COLUMN_CATEGORY_ID
+        };
+
+        public static Uri buildPatternUri(long date) {
+            return CONTENT_URI;
+        }
+    }
+
 }

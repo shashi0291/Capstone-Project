@@ -26,10 +26,8 @@ public class DesignPatternDbHelper extends SQLiteOpenHelper {
     * .db extension.
     */
     public static final String DATABASE_NAME = "design_pattern.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
-    public static final String CATEGORY_LIST = "category_list";
-    public static final String CATEGORY_DETAILS = "category_details";
     private Context mContext;
 
 
@@ -40,6 +38,7 @@ public class DesignPatternDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d(TAG, "Create SQLiteDatabase ");
         fillData(db);
     }
 
@@ -47,8 +46,10 @@ public class DesignPatternDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, "Upgrading sample.com.sqlitesample.database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
-        db.execSQL("DROP TABLE IF EXISTS " + CATEGORY_LIST);
-        db.execSQL("DROP TABLE IF EXISTS " + CATEGORY_DETAILS);
+        db.execSQL("DROP TABLE IF EXISTS " + DesignPatternContract.CategoryEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DesignPatternContract.PatternEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DesignPatternContract.FavoritePatternEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DesignPatternContract.RecentPatternEntry.TABLE_NAME);
 
         onCreate(db);
     }

@@ -14,17 +14,12 @@ import java.util.ArrayList;
 
 public class MainScreenData implements Parcelable {
 
-    private String title;
-    private String Description;
-    private ArrayList<MainScreenTab> mainScreenTabList;
-
+    private ArrayList<Category> categoryList;
 
     public MainScreenData() {   }
 
     protected MainScreenData(Parcel in) {
-        title = in.readString();
-        Description = in.readString();
-        mainScreenTabList = in.createTypedArrayList(MainScreenTab.CREATOR);
+        categoryList = in.createTypedArrayList(Category.CREATOR);
     }
 
     public static final Creator<MainScreenData> CREATOR = new Creator<MainScreenData>() {
@@ -39,30 +34,6 @@ public class MainScreenData implements Parcelable {
         }
     };
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String description) {
-        this.Description = description;
-    }
-
-    public ArrayList<MainScreenTab> getMainScreenTabList() {
-        return mainScreenTabList;
-    }
-
-    public void setMainScreenTabList(ArrayList<MainScreenTab> mainScreenTabList) {
-        this.mainScreenTabList = mainScreenTabList;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -70,9 +41,15 @@ public class MainScreenData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
-        dest.writeString(Description);
-        dest.writeTypedList(mainScreenTabList);
+        dest.writeTypedList(categoryList);
+    }
+
+    public ArrayList<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(ArrayList<Category> categoryList) {
+        this.categoryList = categoryList;
     }
 
     @Override
@@ -84,18 +61,14 @@ public class MainScreenData implements Parcelable {
         MainScreenData that = (MainScreenData) o;
 
         return new EqualsBuilder()
-                .append(title, that.title)
-                .append(Description, that.Description)
-                .append(mainScreenTabList, that.mainScreenTabList)
+                .append(categoryList, that.categoryList)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(title)
-                .append(Description)
-                .append(mainScreenTabList)
+                .append(categoryList)
                 .toHashCode();
     }
 }

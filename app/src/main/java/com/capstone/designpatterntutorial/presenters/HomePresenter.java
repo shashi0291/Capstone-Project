@@ -35,7 +35,7 @@ public class HomePresenter implements LoaderManager.LoaderCallbacks<MainScreenDa
         mMyApplication.getAppComponent().inject(this);
     }
 
-    public void getMainScreenData(LoaderManager loaderManager) {
+    public void getPattern(LoaderManager loaderManager) {
         loaderManager.initLoader(MAIN_SCREEN_DATA_LOADER_ID, null, this).forceLoad();
     }
 
@@ -54,4 +54,11 @@ public class HomePresenter implements LoaderManager.LoaderCallbacks<MainScreenDa
 
     }
 
+    public void getFavoritePattern(LoaderManager loaderManager) {
+
+    }
+
+    public void getRecentsPattern(LoaderManager loaderManager) {
+
+    }
 }

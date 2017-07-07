@@ -16,8 +16,10 @@ public class DesignPatternProvider extends ContentProvider {
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
-    public static final int CATEGORY_LIST = 100;
-    public static final int CATEGORY_DETAILS = 101;
+    public static final int CATEGORY = 100;
+    public static final int PATTERN = 101;
+    public static final int FAVORITE_PATTERN = 102;
+    public static final int RECENT_PATTERN = 103;
 
     private DesignPatternDbHelper mOpenHelper;
 
@@ -35,9 +37,9 @@ public class DesignPatternProvider extends ContentProvider {
         Cursor cursor;
 
         switch (sUriMatcher.match(uri)) {
-            case CATEGORY_LIST:
+            case CATEGORY:
                 cursor = mOpenHelper.getReadableDatabase().query(
-                        DesignPatternContract.CategoryListEntry.TABLE_NAME,
+                        DesignPatternContract.CategoryEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -45,9 +47,9 @@ public class DesignPatternProvider extends ContentProvider {
                         null,
                         sortOrder);
                 break;
-            case CATEGORY_DETAILS:
+            case PATTERN:
                 cursor = mOpenHelper.getReadableDatabase().query(
-                        DesignPatternContract.CategoryDetailsEntry.TABLE_NAME,
+                        DesignPatternContract.PatternEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -89,8 +91,10 @@ public class DesignPatternProvider extends ContentProvider {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = DesignPatternContract.CONTENT_AUTHORITY;
 
-        matcher.addURI(authority, DesignPatternContract.PATH_CATEGORYLIST, CATEGORY_LIST);
-        matcher.addURI(authority, DesignPatternContract.PATH_CATEGORYDETAILS, CATEGORY_DETAILS);
+        matcher.addURI(authority, DesignPatternContract.PATH_CATEGORY, CATEGORY);
+        matcher.addURI(authority, DesignPatternContract.PATH_PATTERN, PATTERN);
+        matcher.addURI(authority, DesignPatternContract.PATH_FAVORITE_PATTERN, FAVORITE_PATTERN);
+        matcher.addURI(authority, DesignPatternContract.PATH_RECENT_PATTERN, RECENT_PATTERN);
 
         return matcher;
     }

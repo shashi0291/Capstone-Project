@@ -4,18 +4,19 @@ import android.content.ContentResolver;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
+import android.view.Gravity;
 
 import com.capstone.designpatterntutorial.R;
 import com.capstone.designpatterntutorial.di.MyApplication;
 import com.capstone.designpatterntutorial.model.events.MainScreenEvent;
 import com.capstone.designpatterntutorial.model.mainScreen.MainScreenData;
-import com.capstone.designpatterntutorial.model.mainScreen.ScreenData;
+import com.capstone.designpatterntutorial.model.mainScreen.Pattern;
 import com.capstone.designpatterntutorial.presenters.HomePresenter;
-import com.capstone.designpatterntutorial.views.fragments.detailfragment.DetailFragment;
-import com.capstone.designpatterntutorial.views.fragments.mainfragment.MainFragment;
-import com.capstone.designpatterntutorial.views.fragments.mainfragment.MainListFragment;
+import com.capstone.designpatterntutorial.views.fragments.categoryfragment.CategoryFragment;
+import com.capstone.designpatterntutorial.views.fragments.categoryfragment.CategoryListFragment;
+import com.capstone.designpatterntutorial.views.fragments.patternfragment.PatternFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -23,7 +24,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
-public class HomeActivity extends BaseActivity implements MainListFragment.onListItemClicked, DrawerLayout.DrawerListener {
+public class HomeActivity extends AppCompatActivity implements CategoryListFragment.onListItemClicked, DrawerLayoutEvent {
 
     private String TAG = HomeActivity.class.getSimpleName();
 
@@ -36,6 +37,8 @@ public class HomeActivity extends BaseActivity implements MainListFragment.onLis
     @Inject
     EventBus mEventBus;
 
+    private DrawerLayout drawer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,8 @@ public class HomeActivity extends BaseActivity implements MainListFragment.onLis
         MyApplication.getAppComponent(getApplicationContext()).inject(this);
         mEventBus.register(this);
         setContentView(R.layout.activity_main);
-        mHomePresenter.getMainScreenData(getLoaderManager());
+        mHomePresenter.getPattern(getLoaderManager());
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     }
 
     @Override
@@ -55,7 +59,6 @@ public class HomeActivity extends BaseActivity implements MainListFragment.onLis
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -65,41 +68,31 @@ public class HomeActivity extends BaseActivity implements MainListFragment.onLis
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMainScreenEvent(MainScreenEvent event) {
-        Log.d(TAG, "MainScreenEvent Received from HomePresenter");
+        Log.d(TAG, "Received Data from Database");
         MainScreenData mainScreenData = event.getMainScreenData();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_content, MainFragment.newInstance(mainScreenData), MainFragment.class.getSimpleName())
+                .replace(R.id.main_content, CategoryFragment.newInstance(mainScreenData), CategoryFragment.class.getSimpleName())
                 .commit();
     }
 
     @Override
-    public void onItemClicked(ScreenData screenData) {
+    public void onItemClicked(Pattern pattern) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_content, DetailFragment.newInstance(screenData), DetailFragment.class.getSimpleName())
+                .replace(R.id.main_content, PatternFragment.newInstance(pattern), PatternFragment.class.getSimpleName())
                 .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                 .addToBackStack(null)
                 .commit();
     }
 
     @Override
-    public void onDrawerSlide(View drawerView, float slideOffset) {
-
+    public void closeDrawerLayout() {
+        drawer.closeDrawers();
     }
 
     @Override
-    public void onDrawerOpened(View drawerView) {
-
-    }
-
-    @Override
-    public void onDrawerClosed(View drawerView) {
-
-    }
-
-    @Override
-    public void onDrawerStateChanged(int newState) {
-
+    public void openDrawerLayout() {
+        drawer.openDrawer(Gravity.LEFT);
     }
 }
