@@ -43,11 +43,11 @@ public class MainScreenLoaderTask extends AsyncTaskLoader<MainScreenData> {
                 String selection = String.format("%s=?", PatternEntry.COLUMN_CATEGORY_ID);
                 String[] selectionArgs = {String.valueOf(category.getId())};
                 Cursor pattern = mContentResolver.query(PatternEntry.CONTENT_URI,
-                        PatternEntry.CATEGORY_DETAILS_COLUMNS,
+                        PatternEntry.PATTERN_COLUMNS,
                         selection,
                         selectionArgs,
                         null);
-                MainScreenConverter.convertCategoryDetailsEntry(pattern, category.getPatternList());
+                MainScreenConverter.convertCategoryDetailsEntry(mContentResolver, pattern, category.getPatternList());
             }
         }
 

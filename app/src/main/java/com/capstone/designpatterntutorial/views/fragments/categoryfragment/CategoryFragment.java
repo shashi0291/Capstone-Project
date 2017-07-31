@@ -6,8 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
@@ -16,7 +14,6 @@ import com.capstone.designpatterntutorial.commons.Constants;
 import com.capstone.designpatterntutorial.di.MyApplication;
 import com.capstone.designpatterntutorial.model.mainScreen.Category;
 import com.capstone.designpatterntutorial.model.mainScreen.MainScreenData;
-import com.capstone.designpatterntutorial.views.activities.HomeActivity;
 import com.capstone.designpatterntutorial.views.fragments.BaseFragment;
 
 import java.util.List;
@@ -40,8 +37,6 @@ public class CategoryFragment extends BaseFragment implements TabLayout.OnTabSel
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
 
-    @BindView(R.id.tool_bar)
-    Toolbar mToolbar;
 
     private MainScreenAdapter mMainScreenAdapter;
 
@@ -79,20 +74,13 @@ public class CategoryFragment extends BaseFragment implements TabLayout.OnTabSel
     @Override
     protected void initFragment(View rootView) {
 
+        toolbar.setNavigationIcon(R.drawable.icon_navigation_menu);
+
         mMainScreenAdapter = new MainScreenAdapter(getChildFragmentManager(), mainScreenData.getCategoryList());
         mViewPager.setAdapter(mMainScreenAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        mToolbar.setNavigationIcon(R.drawable.ic_menu_black);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((HomeActivity) getActivity()).openDrawerLayout();
-            }
-        });
+        setToolbarTitle(R.string.category_title);
     }
 
     public void setupTabs() {
@@ -110,17 +98,14 @@ public class CategoryFragment extends BaseFragment implements TabLayout.OnTabSel
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-
     }
 
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
-
     }
 
     @Override
     public void onClick(View v) {
-
     }
 
     private class MainScreenAdapter extends FragmentStatePagerAdapter {

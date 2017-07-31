@@ -1,12 +1,17 @@
 package com.capstone.designpatterntutorial.views.fragments.patternfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.webkit.WebView;
 
 import com.capstone.designpatterntutorial.R;
 import com.capstone.designpatterntutorial.model.mainScreen.Pattern;
+import com.capstone.designpatterntutorial.services.FavoriteDbService;
+import com.capstone.designpatterntutorial.views.activities.HomeActivity;
 import com.capstone.designpatterntutorial.views.fragments.BaseFragment;
 
 import butterknife.BindView;
@@ -21,6 +26,12 @@ public class PatternFragment extends BaseFragment {
 
     @BindView(R.id.pattern_description)
     WebView description;
+
+    @BindView(R.id.favorite_icon)
+    FloatingActionButton favorite;
+
+    @BindView(R.id.collapsingToolbar)
+    CollapsingToolbarLayout collapsingToolbar;
 
     private Pattern patternData;
 
@@ -52,7 +63,43 @@ public class PatternFragment extends BaseFragment {
     @Override
     protected void initFragment(View rootView) {
         super.initFragment(rootView);
+        ((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+/*
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getActivity().getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+*/
+
+        collapsingToolbar.setTitle(patternData.getName());
+        collapsingToolbar.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+
         description.loadData(patternData.getDescription(), "text/html", null);
-//        description.setText(Html.fromHtml(patternData.getDescription()));
+        favorite.setImageResource(patternData.isFavorite() ? R.drawable.icon_favorite_selected : R.drawable.icon_favorite_unselected);
+
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FavoriteDbService.class);
+
+                if (patternData.isFavorite()) {
+                    favorite.setImageResource(R.drawable.icon_favorite_unselected);
+                    patternData.setFavorite(false);
+                    intent.putExtra(FavoriteDbService.OPERATION_FAVORITE, FavoriteDbService.OPERATION_REMOVE);
+                } else {
+                    favorite.setImageResource(R.drawable.icon_favorite_selected);
+                    patternData.setFavorite(true);
+                    intent.putExtra(FavoriteDbService.OPERATION_FAVORITE, FavoriteDbService.OPERATION_ADD);
+                }
+                intent.putExtra(FavoriteDbService.PATTERN, patternData);
+                getActivity().startService(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void handleNavigationClick() {
+        getActivity().onBackPressed();
     }
 }

@@ -6,6 +6,5 @@ package com.capstone.designpatterntutorial.views.activities;
 
 public interface DrawerLayoutEvent {
     void closeDrawerLayout();
-
     void openDrawerLayout();
 }

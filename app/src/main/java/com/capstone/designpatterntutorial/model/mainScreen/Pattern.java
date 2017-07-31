@@ -18,9 +18,11 @@ public class Pattern implements Parcelable {
     private String intent;
     private String description;
     private String imageName;
+    private boolean favorite;
 
     public Pattern() {
     }
+
 
     protected Pattern(Parcel in) {
         id = in.readInt();
@@ -29,6 +31,7 @@ public class Pattern implements Parcelable {
         intent = in.readString();
         description = in.readString();
         imageName = in.readString();
+        favorite = in.readByte() != 0;
     }
 
     public static final Creator<Pattern> CREATOR = new Creator<Pattern>() {
@@ -91,6 +94,14 @@ public class Pattern implements Parcelable {
         this.imageName = imageName;
     }
 
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -98,12 +109,14 @@ public class Pattern implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+
         dest.writeInt(id);
         dest.writeInt(categoryId);
         dest.writeString(name);
         dest.writeString(intent);
         dest.writeString(description);
         dest.writeString(imageName);
+        dest.writeByte((byte) (favorite ? 1 : 0));
     }
 
     @Override

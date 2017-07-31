@@ -26,7 +26,7 @@ public class DesignPatternDbHelper extends SQLiteOpenHelper {
     * .db extension.
     */
     public static final String DATABASE_NAME = "design_pattern.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
     private Context mContext;
 

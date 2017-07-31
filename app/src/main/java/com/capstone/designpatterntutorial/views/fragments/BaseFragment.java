@@ -3,10 +3,17 @@ package com.capstone.designpatterntutorial.views.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.capstone.designpatterntutorial.R;
+import com.capstone.designpatterntutorial.views.activities.HomeActivity;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -17,6 +24,15 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment {
 
     private Unbinder mUnBinder;
+
+    @Nullable
+    @BindView(R.id.title)
+    protected TextView toolbarTitle;
+
+    @Nullable
+    @BindView(R.id.tool_bar)
+    protected Toolbar toolbar;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,8 +47,24 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(getLayoutId(), container, false);
         mUnBinder = ButterKnife.bind(this, rootView);
+
+        initToolbar();
         initFragment(rootView);
         return rootView;
+    }
+
+    private void initToolbar() {
+        if (toolbar != null) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handleNavigationClick();
+                }
+            });
+        }
     }
 
     @Override
@@ -55,4 +87,16 @@ public abstract class BaseFragment extends Fragment {
 
     //Method to init View
     protected void initFragment(View rootView) {    }
+
+    protected void handleNavigationClick() {
+        ((HomeActivity) getActivity()).openDrawerLayout();
+    }
+
+    protected void setToolbarTitle(int resId) {
+        toolbarTitle.setText(resId);
+    }
+
+    protected void setToolbarTitle(String title) {
+        toolbarTitle.setText(title);
+    }
 }

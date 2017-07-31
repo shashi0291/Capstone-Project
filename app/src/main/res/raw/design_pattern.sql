@@ -3,6 +3,8 @@ CREATE TABLE "category" ("id" INTEGER PRIMARY KEY  NOT NULL , "name" VARCHAR NOT
 INSERT INTO "category" VALUES(1,'Creational','Creational patterns concern the process of object creation.');
 INSERT INTO "category" VALUES(2,'Structural','Structural patterns deal with the composition of classes or objects.');
 INSERT INTO "category" VALUES(3,'Behavioral','Behavioral patterns characterize the ways in which classes or objects interact and distribute responsibility.');
+DROP TABLE IF EXISTS "favorite_pattern";
+CREATE TABLE "favorite_pattern" ("id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , "name" TEXT NOT NULL , "intent" TEXT NOT NULL , "description" TEXT NOT NULL , "imageName" VARCHAR, "categoryId" INTEGER NOT NULL );
 DROP TABLE IF EXISTS "pattern";
 CREATE TABLE "pattern" ("id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , "name" TEXT NOT NULL , "intent" TEXT NOT NULL , "description" TEXT NOT NULL , "imageName" VARCHAR, "categoryId" INTEGER NOT NULL );
 INSERT INTO "pattern" VALUES(1,'Singleton','Ensure a class only has one instance, and provide a global point of access to it.','<h2>Motivation</h2>
@@ -600,3 +602,5 @@ INSERT INTO "pattern" VALUES(23,'Visitor','Represent an operation to be performe
 <li>Specifying new objects by varying values. Highly dynamic systems let you define new behavior through object composition by specifying values for an objects variables, for example and not by defining new classes. You effectively define new kinds of objects by instantiating existing classes and registering the instances as prototypes of client objects. A client can exhibit new behavior by delegating responsibility to the prototype.</li>
 </ol>
 <p>The main liability of the Prototype pattern is that each subclass of Prototype must implement the Clone operation, which may be difficult. For example, adding Clone is difficult when the classes under consideration already exist. Implementing Clone can be difficult when their internals include objects that donot support copying or have circular references.</p>','icon_visitor',3);
+DROP TABLE IF EXISTS "recent_pattern";
+CREATE TABLE "recent_pattern" ("id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , "name" TEXT NOT NULL , "intent" TEXT NOT NULL , "description" TEXT NOT NULL , "imageName" VARCHAR, "categoryId" INTEGER NOT NULL );

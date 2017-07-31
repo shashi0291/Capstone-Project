@@ -16,4 +16,12 @@
         <item>@string/recents</item>
     </string-array>
 
+    <string name="category_title">Design Pattern</string>
+
+    <string name="favorite_title">Favorite Pattern</string>
+    <string name="no_favorite_msg">"No Favorites Found"</string>
+    <string name="title_pattern_widget">Favorite Pattern</string>
+    <string name="add_fav_pattern">Add Favorite Pattern</string>
+
+
 </resources>

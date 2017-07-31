@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.capstone.designpatterntutorial.model.converter.MainScreenConverter;
+import com.capstone.designpatterntutorial.presenters.FavoritePresenter;
 import com.capstone.designpatterntutorial.presenters.HomePresenter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -69,5 +70,11 @@ public class BaseModuleApplication {
     @Singleton
     HomePresenter providesHomePresenter() {
         return new HomePresenter(mMyApplication);
+    }
+
+    @Provides
+    @Singleton
+    FavoritePresenter providesFavoritePresenter() {
+        return new FavoritePresenter(mMyApplication);
     }
 }

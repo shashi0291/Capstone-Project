@@ -21,6 +21,7 @@ import javax.inject.Inject;
 public class HomePresenter implements LoaderManager.LoaderCallbacks<MainScreenData> {
 
     public static final int MAIN_SCREEN_DATA_LOADER_ID = 100;
+
     MyApplication mMyApplication;
 
     @Inject
@@ -51,10 +52,6 @@ public class HomePresenter implements LoaderManager.LoaderCallbacks<MainScreenDa
 
     @Override
     public void onLoaderReset(Loader<MainScreenData> loader) {
-
-    }
-
-    public void getFavoritePattern(LoaderManager loaderManager) {
 
     }
 

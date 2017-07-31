@@ -2,6 +2,7 @@ package com.capstone.designpatterntutorial.views.activities;
 
 import android.content.ContentResolver;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import com.capstone.designpatterntutorial.model.events.MainScreenEvent;
 import com.capstone.designpatterntutorial.model.mainScreen.MainScreenData;
 import com.capstone.designpatterntutorial.model.mainScreen.Pattern;
 import com.capstone.designpatterntutorial.presenters.HomePresenter;
+import com.capstone.designpatterntutorial.views.fragments.FavoriteListFragment;
 import com.capstone.designpatterntutorial.views.fragments.categoryfragment.CategoryFragment;
 import com.capstone.designpatterntutorial.views.fragments.categoryfragment.CategoryListFragment;
 import com.capstone.designpatterntutorial.views.fragments.patternfragment.PatternFragment;
@@ -70,10 +72,23 @@ public class HomeActivity extends AppCompatActivity implements CategoryListFragm
     public void onMainScreenEvent(MainScreenEvent event) {
         Log.d(TAG, "Received Data from Database");
         MainScreenData mainScreenData = event.getMainScreenData();
-        getSupportFragmentManager()
-                .beginTransaction()
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStackImmediate();
+        fragmentManager.beginTransaction()
                 .replace(R.id.main_content, CategoryFragment.newInstance(mainScreenData), CategoryFragment.class.getSimpleName())
-                .commit();
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                .commitAllowingStateLoss();
+    }
+
+    public void launchFavoriteFragment() {
+        Log.d(TAG, "Received Data from Database");
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStackImmediate();
+        fragmentManager.beginTransaction()
+                .replace(R.id.main_content, FavoriteListFragment.newInstance(), FavoriteListFragment.class.getSimpleName())
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                .commitAllowingStateLoss();
     }
 
     @Override
@@ -83,7 +98,7 @@ public class HomeActivity extends AppCompatActivity implements CategoryListFragm
                 .replace(R.id.main_content, PatternFragment.newInstance(pattern), PatternFragment.class.getSimpleName())
                 .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                 .addToBackStack(null)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     @Override

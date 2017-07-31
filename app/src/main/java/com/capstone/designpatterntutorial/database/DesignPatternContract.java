@@ -31,7 +31,7 @@ public class DesignPatternContract {
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_DESCRIPTION = "description";
 
-        public static final String[] CATEGORY_LIST_COLUMNS = {
+        public static final String[] CATEGORY_COLUMNS = {
                 COLUMN_ID,
                 COLUMN_NAME,
                 COLUMN_DESCRIPTION
@@ -58,13 +58,13 @@ public class DesignPatternContract {
         public static final String COLUMN_INTENT = "intent";
         public static final String COLUMN_IMAGE_NAME = "imageName";
 
-        public static final String[] CATEGORY_DETAILS_COLUMNS = {
+        public static final String[] PATTERN_COLUMNS = {
                 COLUMN_ID,
                 COLUMN_NAME,
                 COLUMN_INTENT,
                 COLUMN_DESCRIPTION,
                 COLUMN_IMAGE_NAME,
-                COLUMN_CATEGORY_ID
+                COLUMN_CATEGORY_ID,
         };
 
         public static Uri buildPatternUri(long date) {
@@ -76,7 +76,7 @@ public class DesignPatternContract {
     public static final class FavoritePatternEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
-                .appendPath(PATH_PATTERN)
+                .appendPath(PATH_FAVORITE_PATTERN)
                 .build();
 
         public static final String TABLE_NAME = "favorite_pattern";
@@ -88,7 +88,7 @@ public class DesignPatternContract {
         public static final String COLUMN_INTENT = "intent";
         public static final String COLUMN_IMAGE_NAME = "imageName";
 
-        public static final String[] CATEGORY_DETAILS_COLUMNS = {
+        public static final String[] FAVORITE_PATTERN_COLUMNS = {
                 COLUMN_ID,
                 COLUMN_NAME,
                 COLUMN_INTENT,
@@ -106,7 +106,7 @@ public class DesignPatternContract {
     public static final class RecentPatternEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
-                .appendPath(PATH_PATTERN)
+                .appendPath(PATH_RECENT_PATTERN)
                 .build();
 
         public static final String TABLE_NAME = "recent_pattern";
@@ -118,7 +118,7 @@ public class DesignPatternContract {
         public static final String COLUMN_INTENT = "intent";
         public static final String COLUMN_IMAGE_NAME = "imageName";
 
-        public static final String[] CATEGORY_DETAILS_COLUMNS = {
+        public static final String[] RECENT_PATTERN_COLUMNS = {
                 COLUMN_ID,
                 COLUMN_NAME,
                 COLUMN_INTENT,

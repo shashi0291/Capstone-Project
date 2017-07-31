@@ -27,6 +27,10 @@ public class MainListAdapter extends RecyclerView.Adapter <MainListAdapter.Detai
         this.mPatternList = patternList;
     }
 
+    public void setmPatternList(List<Pattern> mPatternList) {
+        this.mPatternList = mPatternList;
+    }
+
     @Override
     public DetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
