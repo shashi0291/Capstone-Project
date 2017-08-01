@@ -160,7 +160,8 @@ public class NavigationMenuFragment extends BaseFragment implements NavigationMe
             if (addresses.size() > 0) {
                 Address addr = addresses.get(0);
                 Timber.tag(TAG).d("Locality :: " + addr.getLocality() + " Country Name :: " + addr.getCountryName());
-                title.setText(addr.getLocality() + ", " + addr.getCountryName());
+                String location = addr.getLocality() + ", " + addr.getCountryName();
+                mCurrentLocation.setText(location);
             }
 
         } catch (IOException e) {

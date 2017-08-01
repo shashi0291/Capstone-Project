@@ -108,6 +108,6 @@ public class HomeActivity extends AppCompatActivity implements CategoryListFragm
 
     @Override
     public void openDrawerLayout() {
-        drawer.openDrawer(Gravity.LEFT);
+        drawer.openDrawer(Gravity.START);
     }
 }

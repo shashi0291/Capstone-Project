@@ -22,6 +22,9 @@
     <string name="no_favorite_msg">"No Favorites Found"</string>
     <string name="title_pattern_widget">Favorite Pattern</string>
     <string name="add_fav_pattern">Add Favorite Pattern</string>
+    <string name="detail_fragment_image_cd">Flow chart image for Design Pattern</string>
+    <string name="widget_fav_list_cd">Refresh Favorite List</string>
+    <string name="nav_fragment_logo_cd">Design Pattern Logo</string>
 
 
 </resources>

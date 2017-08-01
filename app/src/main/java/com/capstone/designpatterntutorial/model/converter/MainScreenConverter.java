@@ -85,8 +85,10 @@ public class MainScreenConverter {
                 selection,
                 selectionArgs,
                 null);
+        boolean result = ((cursor != null) && (cursor.getCount() > 0));
 
-        return ((cursor != null) && (cursor.getCount() > 0));
+        cursor.close();
+        return result;
     }
 
     public static ContentValues toFavoritePatternContentValues(Pattern pattern) {

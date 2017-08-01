@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="wrap_content">
 
@@ -15,17 +16,17 @@
             android:id="@+id/item_design_pattern_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Factory Pattern"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Factory Pattern"/>
 
         <TextView
             android:id="@+id/item_design_pattern_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Factory pattern is one of the most used design patterns in Java. This type of design pattern comes under creational pattern as this pattern provides one of the best ways to create an object."
-            android:textSize="12dp"
-            android:textStyle="bold"/>
+            android:textSize="12sp"
+            android:textStyle="bold"
+            tools:text="Factory pattern is one of the most used design patterns in Java. This type of design pattern comes under creational pattern as this pattern provides one of the best ways to create an object."/>
 
     </LinearLayout>
 
