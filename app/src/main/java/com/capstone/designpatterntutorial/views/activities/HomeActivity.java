@@ -19,6 +19,8 @@ import com.capstone.designpatterntutorial.views.fragments.FavoriteListFragment;
 import com.capstone.designpatterntutorial.views.fragments.categoryfragment.CategoryFragment;
 import com.capstone.designpatterntutorial.views.fragments.categoryfragment.CategoryListFragment;
 import com.capstone.designpatterntutorial.views.fragments.patternfragment.PatternFragment;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -40,6 +42,7 @@ public class HomeActivity extends AppCompatActivity implements CategoryListFragm
     EventBus mEventBus;
 
     private DrawerLayout drawer;
+    private AdView mAdView;
 
 
     @Override
@@ -49,6 +52,10 @@ public class HomeActivity extends AppCompatActivity implements CategoryListFragm
         mEventBus.register(this);
         setContentView(R.layout.activity_main);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         if (savedInstanceState == null) {
             mHomePresenter.getPattern(getLoaderManager());
