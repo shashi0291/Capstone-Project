@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.capstone.designpatterntutorial.di.MyApplication;
 import com.capstone.designpatterntutorial.model.events.MainScreenEvent;
-import com.capstone.designpatterntutorial.model.mainScreen.MainScreenData;
+import com.capstone.designpatterntutorial.model.mainscreen.MainScreenData;
 import com.capstone.designpatterntutorial.services.MainScreenLoaderTask;
 
 import org.greenrobot.eventbus.EventBus;

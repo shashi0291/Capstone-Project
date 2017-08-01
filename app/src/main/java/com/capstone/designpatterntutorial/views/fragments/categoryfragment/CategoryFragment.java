@@ -12,8 +12,8 @@ import android.view.View;
 import com.capstone.designpatterntutorial.R;
 import com.capstone.designpatterntutorial.commons.Constants;
 import com.capstone.designpatterntutorial.di.MyApplication;
-import com.capstone.designpatterntutorial.model.mainScreen.Category;
-import com.capstone.designpatterntutorial.model.mainScreen.MainScreenData;
+import com.capstone.designpatterntutorial.model.mainscreen.Category;
+import com.capstone.designpatterntutorial.model.mainscreen.MainScreenData;
 import com.capstone.designpatterntutorial.views.fragments.BaseFragment;
 
 import java.util.List;

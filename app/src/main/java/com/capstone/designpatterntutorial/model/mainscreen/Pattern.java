@@ -1,4 +1,4 @@
-package com.capstone.designpatterntutorial.model.mainScreen;
+package com.capstone.designpatterntutorial.model.mainscreen;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -12,6 +12,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class Pattern implements Parcelable {
 
+    public static final int INITIAL_ODD_NUMBER = 17;
+    public static final int MULTIPLIER_ODD_NUMBER = 37;
     private int id;
     private int categoryId;
     private String name;
@@ -139,7 +141,7 @@ public class Pattern implements Parcelable {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
+        return new HashCodeBuilder(INITIAL_ODD_NUMBER, MULTIPLIER_ODD_NUMBER)
                 .append(id)
                 .append(categoryId)
                 .append(name)

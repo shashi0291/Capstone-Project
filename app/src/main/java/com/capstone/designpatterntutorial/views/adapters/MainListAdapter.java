@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.capstone.designpatterntutorial.R;
-import com.capstone.designpatterntutorial.model.mainScreen.Pattern;
+import com.capstone.designpatterntutorial.model.mainscreen.Pattern;
 
 import java.util.List;
 

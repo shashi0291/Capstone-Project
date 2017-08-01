@@ -3,7 +3,7 @@ package com.capstone.designpatterntutorial.model.favorite;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.capstone.designpatterntutorial.model.mainScreen.Pattern;
+import com.capstone.designpatterntutorial.model.mainscreen.Pattern;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 public class FavoriteScreenData implements Parcelable {
 
+    public static final int INITIAL_ODD_NUMBER = 17;
+    public static final int MULTIPLIER_ODD_NUMBER = 37;
     private ArrayList<Pattern> patternList;
 
     public FavoriteScreenData() {
@@ -70,7 +72,7 @@ public class FavoriteScreenData implements Parcelable {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
+        return new HashCodeBuilder(INITIAL_ODD_NUMBER, MULTIPLIER_ODD_NUMBER)
                 .append(patternList)
                 .toHashCode();
     }

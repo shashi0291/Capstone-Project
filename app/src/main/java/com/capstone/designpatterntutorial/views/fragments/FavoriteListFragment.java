@@ -11,7 +11,7 @@ import com.capstone.designpatterntutorial.R;
 import com.capstone.designpatterntutorial.di.MyApplication;
 import com.capstone.designpatterntutorial.model.events.FavoriteScreenEvent;
 import com.capstone.designpatterntutorial.model.favorite.FavoriteScreenData;
-import com.capstone.designpatterntutorial.model.mainScreen.Pattern;
+import com.capstone.designpatterntutorial.model.mainscreen.Pattern;
 import com.capstone.designpatterntutorial.presenters.FavoritePresenter;
 import com.capstone.designpatterntutorial.views.activities.HomeActivity;
 import com.capstone.designpatterntutorial.views.adapters.MainListAdapter;

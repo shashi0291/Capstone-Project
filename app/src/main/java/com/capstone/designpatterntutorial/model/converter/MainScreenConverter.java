@@ -9,9 +9,9 @@ import com.capstone.designpatterntutorial.database.DesignPatternContract;
 import com.capstone.designpatterntutorial.database.DesignPatternContract.CategoryEntry;
 import com.capstone.designpatterntutorial.database.DesignPatternContract.PatternEntry;
 import com.capstone.designpatterntutorial.model.favorite.FavoriteScreenData;
-import com.capstone.designpatterntutorial.model.mainScreen.Category;
-import com.capstone.designpatterntutorial.model.mainScreen.MainScreenData;
-import com.capstone.designpatterntutorial.model.mainScreen.Pattern;
+import com.capstone.designpatterntutorial.model.mainscreen.Category;
+import com.capstone.designpatterntutorial.model.mainscreen.MainScreenData;
+import com.capstone.designpatterntutorial.model.mainscreen.Pattern;
 
 import java.util.ArrayList;
 

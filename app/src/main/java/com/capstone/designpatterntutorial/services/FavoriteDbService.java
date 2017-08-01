@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.capstone.designpatterntutorial.database.DesignPatternContract.FavoritePatternEntry;
 import com.capstone.designpatterntutorial.model.converter.MainScreenConverter;
-import com.capstone.designpatterntutorial.model.mainScreen.Pattern;
+import com.capstone.designpatterntutorial.model.mainscreen.Pattern;
 
 /**
  * Created by gubbave on 7/12/2017.

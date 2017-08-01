@@ -9,7 +9,7 @@ import android.view.View;
 import android.webkit.WebView;
 
 import com.capstone.designpatterntutorial.R;
-import com.capstone.designpatterntutorial.model.mainScreen.Pattern;
+import com.capstone.designpatterntutorial.model.mainscreen.Pattern;
 import com.capstone.designpatterntutorial.services.FavoriteDbService;
 import com.capstone.designpatterntutorial.views.activities.HomeActivity;
 import com.capstone.designpatterntutorial.views.fragments.BaseFragment;

@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.capstone.designpatterntutorial.R;
-import com.capstone.designpatterntutorial.model.mainScreen.Pattern;
+import com.capstone.designpatterntutorial.model.mainscreen.Pattern;
 import com.capstone.designpatterntutorial.views.activities.HomeActivity;
 import com.capstone.designpatterntutorial.views.adapters.MainListAdapter;
 import com.capstone.designpatterntutorial.views.fragments.BaseFragment;

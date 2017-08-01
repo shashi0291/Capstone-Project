@@ -1,4 +1,4 @@
-package com.capstone.designpatterntutorial.model.mainScreen;
+package com.capstone.designpatterntutorial.model.mainscreen;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,6 +13,9 @@ import java.util.ArrayList;
  */
 
 public class MainScreenData implements Parcelable {
+
+    public static final int INITIAL_ODD_NUMBER = 17;
+    public static final int MULTIPLIER_ODD_NUMBER = 37;
 
     private ArrayList<Category> categoryList;
 
@@ -56,6 +59,7 @@ public class MainScreenData implements Parcelable {
     public boolean equals(Object o) {
         if (this == o) return true;
 
+
         if (o == null || getClass() != o.getClass()) return false;
 
         MainScreenData that = (MainScreenData) o;
@@ -67,7 +71,7 @@ public class MainScreenData implements Parcelable {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
+        return new HashCodeBuilder(INITIAL_ODD_NUMBER, MULTIPLIER_ODD_NUMBER)
                 .append(categoryList)
                 .toHashCode();
     }

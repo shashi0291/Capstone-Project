@@ -26,7 +26,8 @@
     <string name="widget_fav_list_cd">Refresh Favorite List</string>
     <string name="nav_fragment_logo_cd">Design Pattern Logo</string>
     <string name="favorite_fab_cd">Click to mark Pattern as Favorite</string>
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
 
 
 </resources>
