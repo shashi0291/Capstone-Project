@@ -48,8 +48,11 @@ public class HomeActivity extends AppCompatActivity implements CategoryListFragm
         MyApplication.getAppComponent(getApplicationContext()).inject(this);
         mEventBus.register(this);
         setContentView(R.layout.activity_main);
-        mHomePresenter.getPattern(getLoaderManager());
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        if (savedInstanceState == null) {
+            mHomePresenter.getPattern(getLoaderManager());
+        }
     }
 
     @Override

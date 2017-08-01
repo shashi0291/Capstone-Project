@@ -22,7 +22,6 @@ import com.capstone.designpatterntutorial.views.activities.HomeActivity;
 import com.capstone.designpatterntutorial.views.adapters.NavigationMenuAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import java.io.IOException;
@@ -40,9 +39,11 @@ import timber.log.Timber;
 
 public class NavigationMenuFragment extends BaseFragment implements NavigationMenuAdapter.OnItemClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
+    public static final String SELECTED_INDEX = "selectedIndex";
     private static String TAG = NavigationMenuFragment.class.getSimpleName();
 
-    public static final int DEFAULT_SELECTED_INDEX = 0;
+    private static final int DEFAULT_SELECTED_INDEX = 0;
+    private static final int PERMISSION_ACCESS_FINE_LOCATION = 1;
 
     @BindView(R.id.navigation_menu_list)
     RecyclerView mRecyclerView;
@@ -59,9 +60,8 @@ public class NavigationMenuFragment extends BaseFragment implements NavigationMe
     private NavigationMenuAdapter mAdapter;
     private String[] menuList;
     private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
     private Location mLastLocation;
-    private final int PERMISSION_ACCESS_FINE_LOCATION = 1;
+    private int mSelectedIndex = DEFAULT_SELECTED_INDEX;
 
 
     public static NavigationMenuFragment newInstance() {
@@ -89,12 +89,21 @@ public class NavigationMenuFragment extends BaseFragment implements NavigationMe
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+        if (savedInstanceState != null) {
+            mSelectedIndex = savedInstanceState.getInt(SELECTED_INDEX);
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(SELECTED_INDEX, mSelectedIndex);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -110,7 +119,7 @@ public class NavigationMenuFragment extends BaseFragment implements NavigationMe
         menuList = getResources().getStringArray(R.array.navigation_menu_list);
 
         mAdapter = new NavigationMenuAdapter(menuList);
-        mAdapter.setSelectedItem(DEFAULT_SELECTED_INDEX);
+        mAdapter.setSelectedItem(mSelectedIndex);
         mAdapter.setOnItemClickListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -121,6 +130,7 @@ public class NavigationMenuFragment extends BaseFragment implements NavigationMe
     @Override
     public void onItemClick(View view, int position) {
 
+        mSelectedIndex = position;
         int prevSelectedIndex = mAdapter.getSelectedItem();
 
         if (prevSelectedIndex != position) {
