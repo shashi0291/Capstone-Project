@@ -25,6 +25,7 @@
     <string name="detail_fragment_image_cd">Flow chart image for Design Pattern</string>
     <string name="widget_fav_list_cd">Refresh Favorite List</string>
     <string name="nav_fragment_logo_cd">Design Pattern Logo</string>
+    <string name="favorite_fab_cd">Click to mark Pattern as Favorite</string>
 
 
 </resources>

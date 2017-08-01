@@ -27,7 +27,7 @@ public class PatternFragment extends BaseFragment {
     @BindView(R.id.pattern_description)
     WebView description;
 
-    @BindView(R.id.favorite_icon)
+    @BindView(R.id.favorite_fab)
     FloatingActionButton favorite;
 
     @BindView(R.id.collapsingToolbar)
