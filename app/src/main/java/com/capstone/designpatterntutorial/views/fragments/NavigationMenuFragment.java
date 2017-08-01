@@ -23,6 +23,7 @@ import com.capstone.designpatterntutorial.views.adapters.NavigationMenuAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.io.IOException;
 import java.util.List;
@@ -56,6 +57,10 @@ public class NavigationMenuFragment extends BaseFragment implements NavigationMe
 
     @Inject
     HomePresenter homePresenter;
+
+    @Inject
+    FirebaseAnalytics mFirebaseAnalytics;
+
 
     private NavigationMenuAdapter mAdapter;
     private String[] menuList;
@@ -172,6 +177,13 @@ public class NavigationMenuFragment extends BaseFragment implements NavigationMe
                 Timber.tag(TAG).d("Locality :: " + addr.getLocality() + " Country Name :: " + addr.getCountryName());
                 String location = addr.getLocality() + ", " + addr.getCountryName();
                 mCurrentLocation.setText(location);
+
+                //log Firebase Analytic for tracking Favorite Screen Launch
+                Bundle firebaseBundle = new Bundle();
+                firebaseBundle.putString(FirebaseAnalytics.Param.ITEM_ID, "NavigationMenu");
+                firebaseBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Fragment");
+                firebaseBundle.putString(FirebaseAnalytics.Param.LOCATION, location);
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
             }
 
         } catch (IOException e) {

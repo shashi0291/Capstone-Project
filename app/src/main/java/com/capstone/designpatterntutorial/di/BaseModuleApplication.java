@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import com.capstone.designpatterntutorial.model.converter.MainScreenConverter;
 import com.capstone.designpatterntutorial.presenters.FavoritePresenter;
 import com.capstone.designpatterntutorial.presenters.HomePresenter;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -48,13 +49,11 @@ public class BaseModuleApplication {
     }
 
     @Provides
-    @Singleton
     EventBus providesEventBus(Application application) {
         return EventBus.getDefault();
     }
 
     @Provides
-    @Singleton
     @Named("sticky")
     EventBus providesStickyEventBus(Application application) {
         return EventBus.getDefault();
@@ -76,5 +75,10 @@ public class BaseModuleApplication {
     @Singleton
     FavoritePresenter providesFavoritePresenter() {
         return new FavoritePresenter(mMyApplication);
+    }
+
+    @Provides
+    FirebaseAnalytics provideFirebaseAnalytics() {
+        return FirebaseAnalytics.getInstance(mMyApplication);
     }
 }

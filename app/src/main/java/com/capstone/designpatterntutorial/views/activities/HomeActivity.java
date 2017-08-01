@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 
 import com.capstone.designpatterntutorial.R;
@@ -21,12 +20,15 @@ import com.capstone.designpatterntutorial.views.fragments.categoryfragment.Categ
 import com.capstone.designpatterntutorial.views.fragments.patternfragment.PatternFragment;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 public class HomeActivity extends AppCompatActivity implements CategoryListFragment.onListItemClicked, DrawerLayoutEvent {
 
@@ -40,6 +42,9 @@ public class HomeActivity extends AppCompatActivity implements CategoryListFragm
 
     @Inject
     EventBus mEventBus;
+
+    @Inject
+    FirebaseAnalytics mFirebaseAnalytics;
 
     private DrawerLayout drawer;
     private AdView mAdView;
@@ -80,7 +85,15 @@ public class HomeActivity extends AppCompatActivity implements CategoryListFragm
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMainScreenEvent(MainScreenEvent event) {
-        Log.d(TAG, "Received Data from Database");
+        Timber.tag(TAG).d("Received Data from Database");
+
+        //log Firebase Analytic for tracking MainScreen Launch
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "MainScreen");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Launch MainScreen");
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Fragment");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
         MainScreenData mainScreenData = event.getMainScreenData();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStackImmediate();
@@ -91,7 +104,14 @@ public class HomeActivity extends AppCompatActivity implements CategoryListFragm
     }
 
     public void launchFavoriteFragment() {
-        Log.d(TAG, "Received Data from Database");
+        Timber.tag(TAG).d("Received Data from Database");
+
+        //log Firebase Analytic for tracking Favorite Screen Launch
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Favorite");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Launch Favorite Screen");
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Fragment");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStackImmediate();
@@ -103,6 +123,16 @@ public class HomeActivity extends AppCompatActivity implements CategoryListFragm
 
     @Override
     public void onItemClicked(Pattern pattern) {
+
+        //log Firebase Analytic for tracking Pattern Details Screen Launch
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Pattern");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Launch Pattern Detail Screen");
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Fragment");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, pattern.getName());
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_content, PatternFragment.newInstance(pattern), PatternFragment.class.getSimpleName())
