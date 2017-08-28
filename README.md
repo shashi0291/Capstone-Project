@@ -1,10 +1,10 @@
 # Capstone-Project
 
-This Project (Design Pattern Application) is part for Capstone in Udacity.
+Design Pattern Application is part for Capstone in Udacity Android Nanodegree Program.
 
 # Introduction
 
-This Application provided detailed description of various Design Pattern (Creational, Structural, Functional) allows user to make pattern as favorite or remove from Favorite list.
+Design Pattern Application provided detailed description of various Design Pattern (Creational, Structural, Functional) allows user to make pattern as favorite or remove from Favorite list.
 
 Uses Model View Presenter architecture to implment this application.
 
