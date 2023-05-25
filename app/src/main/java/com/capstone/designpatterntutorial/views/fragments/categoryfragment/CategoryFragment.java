@@ -1,42 +1,34 @@
 package com.capstone.designpatterntutorial.views.fragments.categoryfragment;
 
 import android.os.Bundle;
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import android.util.Log;
 import android.view.View;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+
 import com.capstone.designpatterntutorial.R;
 import com.capstone.designpatterntutorial.commons.Constants;
+import com.capstone.designpatterntutorial.databinding.MainFragmentBinding;
 import com.capstone.designpatterntutorial.di.MyApplication;
 import com.capstone.designpatterntutorial.model.mainscreen.Category;
 import com.capstone.designpatterntutorial.model.mainscreen.MainScreenData;
 import com.capstone.designpatterntutorial.views.fragments.BaseFragment;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * Created by gubbave on 5/2/2017.
  */
 
-public class CategoryFragment extends BaseFragment implements TabLayout.OnTabSelectedListener, View.OnClickListener {
+public class CategoryFragment extends BaseFragment<MainFragmentBinding> implements TabLayout.OnTabSelectedListener, View.OnClickListener {
 
     private static final String TAG = CategoryFragment.class.getSimpleName();
     private static final String MAIN_SCREEN_DATA = "MainScreenData";
 
     private MainScreenData mainScreenData;
-
-    @BindView(R.id.tab_layout)
-    TabLayout mTabLayout;
-
-    @BindView(R.id.view_pager)
-    ViewPager mViewPager;
-
 
     private MainScreenAdapter mMainScreenAdapter;
 
@@ -74,26 +66,26 @@ public class CategoryFragment extends BaseFragment implements TabLayout.OnTabSel
     @Override
     protected void initFragment(View rootView) {
 
-        toolbar.setNavigationIcon(R.drawable.icon_navigation_menu);
+//        toolbar.setNavigationIcon(R.drawable.icon_navigation_menu);
 
         mMainScreenAdapter = new MainScreenAdapter(getChildFragmentManager(), mainScreenData.getCategoryList());
-        mViewPager.setAdapter(mMainScreenAdapter);
-        mTabLayout.setupWithViewPager(mViewPager);
+        binding.viewPager.setAdapter(mMainScreenAdapter);
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
 
         setToolbarTitle(R.string.category_title);
     }
 
     public void setupTabs() {
         for (Category tabDetails : mainScreenData.getCategoryList()) {
-            mTabLayout.addTab(mTabLayout.newTab().setText(tabDetails.getName()));
+            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(tabDetails.getName()));
         }
-        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        mTabLayout.setOnTabSelectedListener(this);
+        binding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        binding.tabLayout.setOnTabSelectedListener(this);
     }
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        mViewPager.setCurrentItem(tab.getPosition());
+        binding.viewPager.setCurrentItem(tab.getPosition());
     }
 
     @Override

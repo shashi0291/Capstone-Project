@@ -29,7 +29,7 @@
 
     </RelativeLayout>
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navigation_menu_fragment"
         class="com.capstone.designpatterntutorial.views.fragments.NavigationMenuFragment"
         android:layout_width="match_parent"

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/colorPrimary"
-              android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include layout="@layout/nav_header_main" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/navigation_menu_list"
+    <LinearLayout 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"/>
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <include layout="@layout/nav_header_main" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/navigation_menu_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" />
+
+    </LinearLayout>
+</layout>

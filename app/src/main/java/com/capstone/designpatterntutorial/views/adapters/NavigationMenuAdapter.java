@@ -7,9 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.capstone.designpatterntutorial.R;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.capstone.designpatterntutorial.databinding.ItemNavigationMenuBinding;
 
 /**
  * Created by gubbave on 5/8/2017.
@@ -28,8 +26,8 @@ public class NavigationMenuAdapter extends RecyclerView.Adapter<NavigationMenuAd
 
     @Override
     public DetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        return new DetailsViewHolder(view);
+        ItemNavigationMenuBinding binding =  ItemNavigationMenuBinding.inflate(LayoutInflater.from(parent.getContext()));
+        return new DetailsViewHolder(binding);
     }
 
     @Override
@@ -65,25 +63,21 @@ public class NavigationMenuAdapter extends RecyclerView.Adapter<NavigationMenuAd
 
     public class DetailsViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.menu_title)
-        TextView title;
+        ItemNavigationMenuBinding binding;
 
-        @BindView(R.id.menu_selected)
-        View selectedMenu;
-
-        public DetailsViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        public DetailsViewHolder(ItemNavigationMenuBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
         public void bindData(String menuTitle, final int position) {
 
-            title.setText(menuTitle);
+            binding.menuTitle.setText(menuTitle);
 
             if (selectedItem == position)
-                selectedMenu.setVisibility(View.VISIBLE);
+                binding.menuSelected.setVisibility(View.VISIBLE);
             else
-                selectedMenu.setVisibility(View.GONE);
+                binding.menuSelected.setVisibility(View.GONE);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

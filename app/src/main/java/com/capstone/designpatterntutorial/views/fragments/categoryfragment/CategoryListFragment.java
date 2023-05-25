@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.capstone.designpatterntutorial.R;
+import com.capstone.designpatterntutorial.databinding.MainScreenDetailsBinding;
 import com.capstone.designpatterntutorial.model.mainscreen.Pattern;
 import com.capstone.designpatterntutorial.views.activities.HomeActivity;
 import com.capstone.designpatterntutorial.views.adapters.MainListAdapter;
@@ -18,13 +19,12 @@ import java.util.ArrayList;
  * Created by gubbave on 5/8/2017.
  */
 
-public class CategoryListFragment extends BaseFragment implements MainListAdapter.OnItemClickListener {
+public class CategoryListFragment extends BaseFragment<MainScreenDetailsBinding> implements MainListAdapter.OnItemClickListener {
 
     private static final String TAG = CategoryListFragment.class.getSimpleName();
     private static final String MAIN_SCREEN_DETAILS_FRAGMENT_DATA = "MainScreenDetailsFragmentData";
 
     private ArrayList<Pattern> mPatternList;
-    private RecyclerView mRecyclerView;
     private MainListAdapter mAdapter;
 
     public static Fragment newInstance(ArrayList<Pattern> patternList) {
@@ -54,8 +54,6 @@ public class CategoryListFragment extends BaseFragment implements MainListAdapte
 
     @Override
     protected void initFragment(View rootView) {
-        mRecyclerView = (RecyclerView) rootView;
-
         if (mPatternList == null)
             return;
 
@@ -63,8 +61,8 @@ public class CategoryListFragment extends BaseFragment implements MainListAdapte
         mAdapter.setOnItemClickListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        binding.recyclerView.setLayoutManager(linearLayoutManager);
+        binding.recyclerView.setAdapter(mAdapter);
     }
 
     @Override

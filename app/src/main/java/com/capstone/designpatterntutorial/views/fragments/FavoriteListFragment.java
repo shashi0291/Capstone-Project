@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.capstone.designpatterntutorial.R;
+import com.capstone.designpatterntutorial.databinding.FavoriteFragmentBinding;
 import com.capstone.designpatterntutorial.di.MyApplication;
 import com.capstone.designpatterntutorial.model.events.FavoriteScreenEvent;
 import com.capstone.designpatterntutorial.model.favorite.FavoriteScreenData;
@@ -28,19 +29,13 @@ import butterknife.BindView;
  * Created by gubbave on 7/12/2017.
  */
 
-public class FavoriteListFragment extends BaseFragment implements MainListAdapter.OnItemClickListener {
+public class FavoriteListFragment extends BaseFragment<FavoriteFragmentBinding> implements MainListAdapter.OnItemClickListener {
 
     private static final String TAG = FavoriteListFragment.class.getSimpleName();
     private static final String FAVORITE_FRAGMENT_DATA = "FavoriteFragmentData";
 
     private FavoriteScreenData favoriteScreenData;
     private MainListAdapter mAdapter;
-
-    @BindView(R.id.favorite_list)
-    RecyclerView mRecyclerView;
-
-    @BindView(R.id.message)
-    TextView mMessage;
 
     @Inject
     FavoritePresenter favoritePresenter;
@@ -115,13 +110,13 @@ public class FavoriteListFragment extends BaseFragment implements MainListAdapte
         mAdapter.setOnItemClickListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        binding.favoriteList.setLayoutManager(linearLayoutManager);
+        binding.favoriteList.setAdapter(mAdapter);
 
         if (favoriteScreenData.getPatternList().size() == 0) {
-            mRecyclerView.setVisibility(View.GONE);
-            mMessage.setVisibility(View.VISIBLE);
-            mMessage.setText(R.string.no_favorite_msg);
+            binding.favoriteList.setVisibility(View.GONE);
+            binding.message.setVisibility(View.VISIBLE);
+            binding.message.setText(R.string.no_favorite_msg);
         }
     }
 

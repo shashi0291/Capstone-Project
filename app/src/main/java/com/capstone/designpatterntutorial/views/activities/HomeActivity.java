@@ -20,6 +20,7 @@ import com.capstone.designpatterntutorial.views.fragments.categoryfragment.Categ
 import com.capstone.designpatterntutorial.views.fragments.patternfragment.PatternFragment;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.greenrobot.eventbus.EventBus;
@@ -53,6 +54,8 @@ public class HomeActivity extends AppCompatActivity implements CategoryListFragm
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MobileAds.initialize(this);
+
         MyApplication.getAppComponent(getApplicationContext()).inject(this);
         mEventBus.register(this);
         setContentView(R.layout.activity_main);

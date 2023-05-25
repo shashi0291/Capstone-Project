@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.capstone.designpatterntutorial.R;
+import com.capstone.designpatterntutorial.databinding.NavigationMenuFragmentBinding;
 import com.capstone.designpatterntutorial.di.MyApplication;
 import com.capstone.designpatterntutorial.presenters.HomePresenter;
 import com.capstone.designpatterntutorial.views.activities.HomeActivity;
@@ -38,7 +39,7 @@ import timber.log.Timber;
  * Created by gubbave on 5/19/2017.
  */
 
-public class NavigationMenuFragment extends BaseFragment implements NavigationMenuAdapter.OnItemClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class NavigationMenuFragment extends BaseFragment<NavigationMenuFragmentBinding> implements NavigationMenuAdapter.OnItemClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     public static final String SELECTED_INDEX = "selectedIndex";
     private static String TAG = NavigationMenuFragment.class.getSimpleName();
@@ -46,22 +47,12 @@ public class NavigationMenuFragment extends BaseFragment implements NavigationMe
     private static final int DEFAULT_SELECTED_INDEX = 0;
     private static final int PERMISSION_ACCESS_FINE_LOCATION = 1;
 
-    @BindView(R.id.navigation_menu_list)
-    RecyclerView mRecyclerView;
-
-    @BindView(R.id.curentLocation)
-    TextView mCurrentLocation;
-
-    @BindView(R.id.title)
-    TextView title;
-
     @Inject
     HomePresenter homePresenter;
 
     @Inject
     FirebaseAnalytics mFirebaseAnalytics;
-
-
+    
     private NavigationMenuAdapter mAdapter;
     private String[] menuList;
     private GoogleApiClient mGoogleApiClient;
@@ -128,8 +119,8 @@ public class NavigationMenuFragment extends BaseFragment implements NavigationMe
         mAdapter.setOnItemClickListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        binding.navigationMenuList.setLayoutManager(linearLayoutManager);
+        binding.navigationMenuList.setAdapter(mAdapter);
     }
 
     @Override
@@ -176,7 +167,7 @@ public class NavigationMenuFragment extends BaseFragment implements NavigationMe
                 Address addr = addresses.get(0);
                 Timber.tag(TAG).d("Locality :: " + addr.getLocality() + " Country Name :: " + addr.getCountryName());
                 String location = addr.getLocality() + ", " + addr.getCountryName();
-                mCurrentLocation.setText(location);
+//                binding..setText(location);
 
                 //log Firebase Analytic for tracking Favorite Screen Launch
                 Bundle firebaseBundle = new Bundle();

@@ -2,36 +2,24 @@ package com.capstone.designpatterntutorial.views.fragments.patternfragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.fragment.app.Fragment;
 import android.view.View;
-import android.webkit.WebView;
+
+import androidx.fragment.app.Fragment;
 
 import com.capstone.designpatterntutorial.R;
+import com.capstone.designpatterntutorial.databinding.DetailFragmentBinding;
 import com.capstone.designpatterntutorial.model.mainscreen.Pattern;
 import com.capstone.designpatterntutorial.services.FavoriteDbService;
 import com.capstone.designpatterntutorial.views.activities.HomeActivity;
 import com.capstone.designpatterntutorial.views.fragments.BaseFragment;
 
-import butterknife.BindView;
-
 /**
  * Created by gubbave on 5/19/2017.
  */
 
-public class PatternFragment extends BaseFragment {
+public class PatternFragment extends BaseFragment<DetailFragmentBinding> {
 
     private static final String PATTERN_DETAILS = "PatternDetails";
-
-    @BindView(R.id.pattern_description)
-    WebView description;
-
-    @BindView(R.id.favorite_fab)
-    FloatingActionButton favorite;
-
-    @BindView(R.id.collapsingToolbar)
-    CollapsingToolbarLayout collapsingToolbar;
 
     private Pattern patternData;
 
@@ -57,7 +45,6 @@ public class PatternFragment extends BaseFragment {
         if (getArguments() != null) {
             patternData = getArguments().getParcelable(PATTERN_DETAILS);
         }
-
     }
 
     @Override
@@ -72,23 +59,23 @@ public class PatternFragment extends BaseFragment {
         }
 */
 
-        collapsingToolbar.setTitle(patternData.getName());
-        collapsingToolbar.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+        binding.collapsingToolbar.setTitle(patternData.getName());
+        binding.collapsingToolbar.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
 
-        description.loadData(patternData.getDescription(), "text/html", null);
-        favorite.setImageResource(patternData.isFavorite() ? R.drawable.icon_favorite_selected : R.drawable.icon_favorite_unselected);
+        binding.patternDescription.loadData(patternData.getDescription(), "text/html", null);
+        binding.favoriteFab.setImageResource(patternData.isFavorite() ? R.drawable.icon_favorite_selected : R.drawable.icon_favorite_unselected);
 
-        favorite.setOnClickListener(new View.OnClickListener() {
+        binding.favoriteFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), FavoriteDbService.class);
 
                 if (patternData.isFavorite()) {
-                    favorite.setImageResource(R.drawable.icon_favorite_unselected);
+                    binding.favoriteFab.setImageResource(R.drawable.icon_favorite_unselected);
                     patternData.setFavorite(false);
                     intent.putExtra(FavoriteDbService.OPERATION_FAVORITE, FavoriteDbService.OPERATION_REMOVE);
                 } else {
-                    favorite.setImageResource(R.drawable.icon_favorite_selected);
+                    binding.favoriteFab.setImageResource(R.drawable.icon_favorite_selected);
                     patternData.setFavorite(true);
                     intent.putExtra(FavoriteDbService.OPERATION_FAVORITE, FavoriteDbService.OPERATION_ADD);
                 }
