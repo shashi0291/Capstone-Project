@@ -10,10 +10,14 @@ Uses Model View Presenter (MVP) architecture to implement this application.
 
 
 # Third Party Library Used
- * com.jakewharton:butterknife
  * com.google.dagger
  * com.google.android.gms:play-services-location
  * org.greenrobot:eventbus
  * org.robolectric
  * org.mockito:mockito
  * com.google.firebase
+
+
+# Features to be added
+ * Convert to MVVM - Hilt, Kotlin, Coroutines, ViewModels -- V
+ * Convert UI to JetPack Compose -- S
