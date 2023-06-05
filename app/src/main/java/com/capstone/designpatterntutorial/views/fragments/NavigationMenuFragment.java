@@ -1,5 +1,7 @@
 package com.capstone.designpatterntutorial.views.fragments;
 
+import static com.google.android.gms.location.LocationServices.FusedLocationApi;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -32,7 +34,6 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import timber.log.Timber;
 
 /**
@@ -42,7 +43,7 @@ import timber.log.Timber;
 public class NavigationMenuFragment extends BaseFragment<NavigationMenuFragmentBinding> implements NavigationMenuAdapter.OnItemClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     public static final String SELECTED_INDEX = "selectedIndex";
-    private static String TAG = NavigationMenuFragment.class.getSimpleName();
+    private static final String TAG = NavigationMenuFragment.class.getSimpleName();
 
     private static final int DEFAULT_SELECTED_INDEX = 0;
     private static final int PERMISSION_ACCESS_FINE_LOCATION = 1;
@@ -158,27 +159,29 @@ public class NavigationMenuFragment extends BaseFragment<NavigationMenuFragmentB
                     PERMISSION_ACCESS_FINE_LOCATION);
             return;
         }
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        mLastLocation = FusedLocationApi.getLastLocation(mGoogleApiClient);
         Geocoder gcd = new Geocoder(getActivity(), Locale.getDefault());
         List<Address> addresses;
-        try {
-            addresses = gcd.getFromLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude(), 1);
-            if (addresses.size() > 0) {
-                Address addr = addresses.get(0);
-                Timber.tag(TAG).d("Locality :: " + addr.getLocality() + " Country Name :: " + addr.getCountryName());
-                String location = addr.getLocality() + ", " + addr.getCountryName();
+        if (mLastLocation != null) {
+            try {
+                addresses = gcd.getFromLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude(), 1);
+                if (addresses.size() > 0) {
+                    Address addr = addresses.get(0);
+                    Timber.tag(TAG).d("Locality :: " + addr.getLocality() + " Country Name :: " + addr.getCountryName());
+                    String location = addr.getLocality() + ", " + addr.getCountryName();
 //                binding..setText(location);
 
-                //log Firebase Analytic for tracking Favorite Screen Launch
-                Bundle firebaseBundle = new Bundle();
-                firebaseBundle.putString(FirebaseAnalytics.Param.ITEM_ID, "NavigationMenu");
-                firebaseBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Fragment");
-                firebaseBundle.putString(FirebaseAnalytics.Param.LOCATION, location);
-                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-            }
+                    //log Firebase Analytic for tracking Favorite Screen Launch
+                    Bundle firebaseBundle = new Bundle();
+                    firebaseBundle.putString(FirebaseAnalytics.Param.ITEM_ID, "NavigationMenu");
+                    firebaseBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Fragment");
+                    firebaseBundle.putString(FirebaseAnalytics.Param.LOCATION, location);
+                    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+                }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         mGoogleApiClient.disconnect();

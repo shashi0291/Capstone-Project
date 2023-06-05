@@ -23,7 +23,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 
 /**
  * Created by gubbave on 7/12/2017.

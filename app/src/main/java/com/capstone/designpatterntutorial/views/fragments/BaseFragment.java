@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import com.capstone.designpatterntutorial.views.activities.HomeActivity;
 
-import butterknife.Unbinder;
 
 /**
  * Created by gubbave on 5/3/2017.
@@ -21,21 +20,9 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
 
-    private Unbinder mUnBinder;
-    /*
-
-        @Nullable
-        @BindView(R.id.title)
-        protected TextView toolbarTitle;
-
-        @Nullable
-        @BindView(R.id.tool_bar)
-        protected Toolbar toolbar;
-    */
     protected Toolbar toolbar;
 
     protected T binding;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +38,6 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
         initToolbar();
-        Thread.dumpStack();
         initFragment(binding.getRoot());
         return binding.getRoot();
     }
@@ -68,7 +54,6 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mUnBinder.unbind();
     }
 
     //Inject the Fragment to dagger
