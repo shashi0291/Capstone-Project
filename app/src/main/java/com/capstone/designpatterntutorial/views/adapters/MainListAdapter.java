@@ -12,7 +12,6 @@ import com.capstone.designpatterntutorial.model.mainscreen.Pattern;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
 
 /**
  * Created by gubbave on 5/8/2017.
